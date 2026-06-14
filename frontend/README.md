@@ -1,16 +1,81 @@
-# React + Vite
+# Rare Medicine Locator - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
 
-Currently, two official plugins are available:
+The frontend of Rare Medicine Locator provides an easy-to-use interface for users and pharmacies to manage medicines and emergency SOS requests.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
 
-## React Compiler
+* React.js
+* Vite
+* Tailwind CSS
+* Axios
+* React Router DOM
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Folder Structure
 
-## Expanding the ESLint configuration
+```txt
+frontend
+├── public
+├── src
+│   ├── api
+│   │   └── axios.js
+│   ├── components
+│   │   └── Navbar.jsx
+│   ├── pages
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── SearchMedicine.jsx
+│   │   ├── EmergencySOS.jsx
+│   │   └── PharmacyDashboard.jsx
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── vite.config.js
+└── package.json
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+
+* User Registration & Login
+* Pharmacy Login
+* Dashboard
+* Medicine Search
+* Emergency SOS Requests
+* User-Specific Request Tracking
+* Pharmacy Dashboard
+* Responsive UI
+
+## Setup
+
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+## Application Workflow
+
+1. User registers and logs in.
+2. User searches for medicine availability.
+3. If unavailable, user creates an Emergency SOS request.
+4. Pharmacy logs in and views requests.
+5. Pharmacy accepts and reserves medicine.
+6. Pharmacy completes the request after collection.
+7. User tracks request status.
+
+## Backend Connection
+
+```js
+baseURL: "https://rare-medicine-backend.onrender.com"
+```
+
+## Deployment
+
+Frontend deployed using Vercel.
