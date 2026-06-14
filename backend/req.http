@@ -1,0 +1,158 @@
+### Register User
+
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+    "name":"Vaishnavi",
+    "email":"vaishnavi3@gmail.com",
+    "password":"123456",
+    "role":"USER"
+}
+
+### Login User
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+    "email":"vaishnavi2@gmail.com",
+    "password":"123456"
+}
+
+### Create Emergency SOS Request
+
+POST http://localhost:5000/emergency/create
+Content-Type: application/json
+
+{
+    "medicineName": "Insulin",
+    "patientName": "Vaishnavi",
+    "contactNumber": "9876543210",
+    "location": "Hyderabad",
+    "urgencyLevel": "CRITICAL",
+    "note": "Need medicine urgently"
+}
+
+
+
+
+### Get All Emergency Requests
+
+GET http://localhost:5000/emergency/all
+
+
+
+### Accept Emergency Request
+
+PUT http://localhost:5000/emergency/accept/6a2a383070124b6308ba2411
+Content-Type: application/json
+
+{
+    "pharmacyName":"Apollo Pharmacy"
+}
+
+
+### Reserve Emergency Medicine
+
+PUT http://localhost:5000/emergency/reserve/6a2a383070124b6308ba2411
+Content-Type: application/json
+
+
+### Add Medicine
+
+POST http://localhost:5000/medicines/add
+Content-Type: application/json
+
+{
+    "name":"Insulin",
+    "description":"Diabetes medicine",
+    "quantity":25,
+    "status":"AVAILABLE",
+    "location":"Hyderabad",
+    "pharmacyName":"Apollo Pharmacy",
+    "contactNumber":"9876543210",
+    "isRare":true
+}
+
+
+### Get All Medicines
+
+GET http://localhost:5000/medicines/all
+
+
+### Search Medicine
+
+GET http://localhost:5000/medicines/search?name=Insulin
+
+
+### Update Medicine Stock
+
+PUT http://localhost:5000/medicines/update-stock/6a2bb24039fb1311e579b952
+Content-Type: application/json
+
+{
+    "quantity": 10,
+    "status": "LOW_STOCK"
+}
+
+### Complete Emergency Request
+
+PUT http://localhost:5000/emergency/complete/6a2a383070124b6308ba2411
+Content-Type: application/json
+
+
+### Delete Medicine
+
+DELETE http://localhost:5000/medicines/delete/6a2bb24039fb1311e579b952
+
+
+### Cancel Emergency Request
+
+PUT http://localhost:5000/emergency/cancel/6a2bd04f0868d0ede4c70f47
+Content-Type: application/json
+
+
+
+### Register Pharmacy
+
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+    "name":"Apollo Pharmacy",
+    "email":"apollo@gmail.com",
+    "password":"123456",
+    "role":"PHARMACY"
+}
+
+
+
+### Login Pharmacy
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+    "email":"apollo@gmail.com",
+    "password":"123456"
+}
+
+
+
+### Add Medicine Protected
+
+POST http://localhost:5000/medicines/add
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMmRhNzlhNTdkZTY0NzBiMGZkZDA1MCIsInJvbGUiOiJQSEFSTUFDWSIsImlhdCI6MTc4MTM3NzAxNywiZXhwIjoxNzgxNDYzNDE3fQ.yc1RrC4YTu26Rbvdq8dsVW_4CnufOmYBZpYqweLGsHo
+
+{
+    "name":"Paracetamol",
+    "description":"Fever medicine",
+    "quantity":50,
+    "status":"AVAILABLE",
+    "location":"Hyderabad",
+    "pharmacyName":"Apollo Pharmacy",
+    "contactNumber":"9876543210",
+    "isRare":false
+}
