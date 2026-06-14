@@ -25,11 +25,9 @@ const Dashboard = () => {
 
         setTotalMedicines(medicines.length);
         setTotalSOS(requests.length);
-
         setCompletedSOS(
           requests.filter((r) => r.status === "COMPLETED").length
         );
-
         setRecentRequests(requests.slice(0, 5));
       } catch (error) {
         console.log(error);
@@ -77,10 +75,19 @@ const Dashboard = () => {
           </div>
 
           <div className="bg-white p-6 rounded-3xl shadow">
-            <p className="text-gray-500">Logged In As</p>
-            <h2 className="text-2xl font-bold text-purple-600">
-              {user.role}
+            <p className="text-gray-500">Current User</p>
+
+            <h2 className="text-xl font-bold text-purple-600">
+              {user.name || "User"}
             </h2>
+
+            <p className="text-sm text-gray-500 mt-1">
+              {user.email || "No email"}
+            </p>
+
+            <p className="text-sm font-semibold text-blue-600 mt-1">
+              {user.role || "USER"}
+            </p>
           </div>
         </div>
 

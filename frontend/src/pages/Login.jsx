@@ -13,6 +13,9 @@ const Login = () => {
     e.preventDefault();
 
     try {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+
       const response = await API.post("/auth/login", {
         email,
         password,
