@@ -7,7 +7,6 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,8 +22,6 @@ const Login = () => {
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
-
-      alert("Login Successful");
 
       navigate("/dashboard");
     } catch (error) {
@@ -54,23 +51,13 @@ const Login = () => {
           />
 
           <input
-            type={showPassword ? "text" : "password"}
+            type="password"
             placeholder="Password"
             className="w-full border p-3 rounded-xl"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-
-          <div className="flex items-center gap-2 text-gray-600">
-            <input
-              type="checkbox"
-              checked={showPassword}
-              onChange={() => setShowPassword(!showPassword)}
-            />
-
-            <label>Show Password</label>
-          </div>
 
           <button
             type="submit"
