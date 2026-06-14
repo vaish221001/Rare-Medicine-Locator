@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Create axios instance
 const API = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://rare-medicine-backend.onrender.com",
 });
 
 // Automatically send token
