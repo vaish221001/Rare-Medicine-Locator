@@ -18,7 +18,7 @@ const Dashboard = () => {
     const fetchDashboardData = async () => {
       try {
         const medicinesRes = await API.get("/medicines/all");
-        const sosRes = await API.get("/emergency/all");
+        const sosRes = await API.get("/emergency/my-requests");
 
         const medicines = medicinesRes.data.medicines || [];
         const requests = sosRes.data.emergencyRequests || [];

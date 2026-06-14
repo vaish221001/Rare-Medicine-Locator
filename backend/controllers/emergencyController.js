@@ -3,13 +3,10 @@ import EmergencyRequest from "../models/EmergencyRequest.js";
 
 
 
-
-  // CREATE EMERGENCY SOS REQUEST
-
+// CREATE EMERGENCY SOS REQUEST
 
 export const createEmergencyRequest = async (req, res) => {
   try {
-    // Get data from request body
     const {
       medicineName,
       patientName,
@@ -19,7 +16,6 @@ export const createEmergencyRequest = async (req, res) => {
       note,
     } = req.body;
 
-    // Save emergency request in MongoDB
     const emergencyRequest = await EmergencyRequest.create({
       medicineName,
       patientName,
@@ -27,6 +23,9 @@ export const createEmergencyRequest = async (req, res) => {
       location,
       urgencyLevel,
       note,
+
+      // Store logged-in user id
+      createdBy: req.user.id,
     });
 
     res.status(201).json({
@@ -42,13 +41,11 @@ export const createEmergencyRequest = async (req, res) => {
 
 
 
-
-   //GET ALL EMERGENCY REQUESTS
-
+// GET ALL EMERGENCY REQUESTS
+// Used by pharmacy dashboard
 
 export const getEmergencyRequests = async (req, res) => {
   try {
-    // Get latest emergency requests first
     const emergencyRequests = await EmergencyRequest.find().sort({
       createdAt: -1,
     });
@@ -66,77 +63,38 @@ export const getEmergencyRequests = async (req, res) => {
 
 
 
-   //ACCEPT EMERGENCY REQUEST
+// GET ONLY LOGGED-IN USER REQUESTS
+// Used by user dashboard and user SOS page
 
-
-export const acceptEmergencyRequest = async (req, res) => {
-
+export const getMyEmergencyRequests = async (req, res) => {
   try {
-
-    // Get request id from URL
-    const { id } = req.params;
-
-    // Get pharmacy name
-    const { pharmacyName } = req.body;
-
-    // Find request
-    const request =
-      await EmergencyRequest.findById(id);
-
-    if (!request) {
-
-      return res.status(404).json({
-
-        message:
-          "Emergency request not found"
-
-      });
-
-    }
-
-    // Update request
-    request.status = "ACCEPTED";
-
-    request.assignedPharmacy =
-      pharmacyName;
-
-    await request.save();
+    const emergencyRequests = await EmergencyRequest.find({
+      createdBy: req.user.id,
+    }).sort({
+      createdAt: -1,
+    });
 
     res.status(200).json({
-
-      message:
-        "Emergency request accepted",
-
-      request
-
+      message: "My emergency requests fetched successfully",
+      emergencyRequests,
     });
-
-  }
-
-  catch (error) {
-
+  } catch (error) {
     res.status(500).json({
-
-      message:
-        error.message
-
+      message: error.message,
     });
-
   }
-
 };
 
 
 
-  // RESERVE MEDICINE FOR 20 MINUTES
+// ACCEPT EMERGENCY REQUEST
 
-
-export const reserveEmergencyMedicine = async (req, res) => {
+export const acceptEmergencyRequest = async (req, res) => {
   try {
-    // Get request id from URL
     const { id } = req.params;
 
-    // Find emergency request
+    const { pharmacyName } = req.body;
+
     const request = await EmergencyRequest.findById(id);
 
     if (!request) {
@@ -145,14 +103,41 @@ export const reserveEmergencyMedicine = async (req, res) => {
       });
     }
 
-    // Create reservation expiry time
-    // Current time + 20 minutes
+    request.status = "ACCEPTED";
+    request.assignedPharmacy = pharmacyName;
+
+    await request.save();
+
+    res.status(200).json({
+      message: "Emergency request accepted",
+      request,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+
+
+// RESERVE MEDICINE FOR 20 MINUTES
+
+export const reserveEmergencyMedicine = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const request = await EmergencyRequest.findById(id);
+
+    if (!request) {
+      return res.status(404).json({
+        message: "Emergency request not found",
+      });
+    }
+
     const reservedUntil = new Date(Date.now() + 20 * 60 * 1000);
 
-    // Update status
     request.status = "RESERVED";
-
-    // Save reservation expiry time
     request.reservedUntil = reservedUntil;
 
     await request.save();
@@ -170,9 +155,7 @@ export const reserveEmergencyMedicine = async (req, res) => {
 
 
 
-
-   //COMPLETE EMERGENCY REQUEST
-
+// COMPLETE EMERGENCY REQUEST
 
 export const completeEmergencyRequest = async (req, res) => {
   try {
@@ -203,8 +186,7 @@ export const completeEmergencyRequest = async (req, res) => {
 
 
 
-   //CANCEL EMERGENCY REQUEST
-
+// CANCEL EMERGENCY REQUEST
 
 export const cancelEmergencyRequest = async (req, res) => {
   try {

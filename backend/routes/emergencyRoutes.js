@@ -7,6 +7,7 @@ import {
   acceptEmergencyRequest,
   reserveEmergencyMedicine,
   getEmergencyRequests,
+  getMyEmergencyRequests,
   completeEmergencyRequest,
   cancelEmergencyRequest,
 } from "../controllers/emergencyController.js";
@@ -31,6 +32,12 @@ router.post(
   createEmergencyRequest
 );
 
+router.get(
+  "/my-requests",
+  authMiddleware,
+  roleMiddleware("USER"),
+  getMyEmergencyRequests
+);
 
 
    //GET ALL SOS REQUESTS

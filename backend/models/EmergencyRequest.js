@@ -8,6 +8,13 @@ const emergencyREquestSchema = new mongoose.Schema({
         required:true,
 
     },
+
+      createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+
+  
     //patient  name
     patientName:{
         type:String,

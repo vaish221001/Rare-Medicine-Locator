@@ -19,7 +19,7 @@ const EmergencySOS = () => {
 
   const fetchRequests = async () => {
     try {
-      const res = await API.get("/emergency/all");
+    const res = await API.get("/emergency/my-requests");
       setRequests(res.data.emergencyRequests);
     } catch (error) {
       alert("Failed to fetch SOS requests");
